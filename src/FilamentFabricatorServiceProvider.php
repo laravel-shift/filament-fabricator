@@ -65,7 +65,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
         parent::packageRegistered();
 
         $this->app->singleton('filament-fabricator', function () {
-            return new FilamentFabricatorManager();
+            return new FilamentFabricatorManager;
         });
     }
 
@@ -74,25 +74,25 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
         if (! $this->app->runningInConsole()) {
             Route::bind('filamentFabricatorPage', function ($value) {
                 $pageModel = FilamentFabricator::getPageModel();
-    
+
                 $pageUrls = FilamentFabricator::getPageUrls();
-    
+
                 $value = Str::start($value, '/');
-    
+
                 $pageId = array_search($value, $pageUrls);
-    
+
                 return $pageModel::query()
                     ->where('id', $pageId)
                     ->firstOrFail();
             });
-    
+
             $this->registerComponentsFromDirectory(
                 Layout::class,
                 config('filament-fabricator.layouts.register'),
                 config('filament-fabricator.layouts.path'),
                 config('filament-fabricator.layouts.namespace')
             );
-    
+
             $this->registerComponentsFromDirectory(
                 PageBlock::class,
                 config('filament-fabricator.page-blocks.register'),
