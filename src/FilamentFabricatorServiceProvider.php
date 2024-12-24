@@ -2,7 +2,9 @@
 
 namespace Z3d0X\FilamentFabricator;
 
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -12,7 +14,10 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Symfony\Component\Finder\SplFileInfo;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
+use Z3d0X\FilamentFabricator\Listeners\OptimizeWithLaravel;
+use Z3d0X\FilamentFabricator\Observers\PageRoutesObserver;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
+use Z3d0X\FilamentFabricator\Services\PageRoutesService;
 
 class FilamentFabricatorServiceProvider extends PackageServiceProvider
 {
@@ -43,6 +48,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
         $commands = [
             Commands\MakeLayoutCommand::class,
             Commands\MakePageBlockCommand::class,
+            Commands\ClearRoutesCacheCommand::class,
         ];
 
         $aliases = [];
@@ -65,7 +71,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
         parent::packageRegistered();
 
         $this->app->singleton('filament-fabricator', function () {
-            return new FilamentFabricatorManager;
+            return resolve(FilamentFabricatorManager::class);
         });
     }
 
@@ -73,17 +79,12 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
     {
         if (! $this->app->runningInConsole()) {
             Route::bind('filamentFabricatorPage', function ($value) {
-                $pageModel = FilamentFabricator::getPageModel();
+                /**
+                 * @var PageRoutesService $routesService
+                 */
+                $routesService = resolve(PageRoutesService::class);
 
-                $pageUrls = FilamentFabricator::getPageUrls();
-
-                $value = Str::start($value, '/');
-
-                $pageId = array_search($value, $pageUrls);
-
-                return $pageModel::query()
-                    ->where('id', $pageId)
-                    ->firstOrFail();
+                return $routesService->findPageOrFail($value);
             });
 
             $this->registerComponentsFromDirectory(
@@ -92,13 +93,24 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
                 config('filament-fabricator.layouts.path'),
                 config('filament-fabricator.layouts.namespace')
             );
-
+    
             $this->registerComponentsFromDirectory(
                 PageBlock::class,
                 config('filament-fabricator.page-blocks.register'),
                 config('filament-fabricator.page-blocks.path'),
                 config('filament-fabricator.page-blocks.namespace')
             );
+        }
+    }
+
+    public function packageBooted()
+    {
+        parent::packageBooted();
+
+        FilamentFabricator::getPageModel()::observe(PageRoutesObserver::class);
+
+        if ((bool) config('filament-fabricator.hook-to-commands')) {
+            Event::listen(CommandFinished::class, OptimizeWithLaravel::class);
         }
     }
 
