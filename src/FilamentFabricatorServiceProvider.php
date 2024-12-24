@@ -93,7 +93,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
                 config('filament-fabricator.layouts.path'),
                 config('filament-fabricator.layouts.namespace')
             );
-    
+
             $this->registerComponentsFromDirectory(
                 PageBlock::class,
                 config('filament-fabricator.page-blocks.register'),
