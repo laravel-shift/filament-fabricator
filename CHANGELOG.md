@@ -2,6 +2,14 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.4.0 - 2024-12-24
+
+### What's Changed
+
+* "Smart" route URLs caching by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/119
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.3.0...v2.4.0
+
 ## v2.3.0 - 2024-12-22
 
 ### What's Changed
