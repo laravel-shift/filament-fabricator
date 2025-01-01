@@ -3,6 +3,7 @@
 namespace Z3d0X\FilamentFabricator;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
@@ -196,7 +197,7 @@ class FilamentFabricatorManager
 
     public function getPageUrlFromId(int|string $id, bool $prefixSlash = false, array $args = []): ?string
     {
-        /** @var ?PageContract $page */
+        /** @var (PageContract&Model)|null $page */
         $page = $this->getPageModel()::query()->find($id);
 
         return $page?->getUrl($args);

@@ -57,6 +57,7 @@ class PageRoutesService
             return null;
         }
 
+        /** @var null|(Page&Model) */
         return FilamentFabricator::getPageModel()::find($id);
     }
 
@@ -111,6 +112,7 @@ class PageRoutesService
 
         // If the page doesn't exists, we know getPageIdFromUri
         // will return -1. Thus, findOrFail will fail as expected.
+        /** @var Page&Model */
         return FilamentFabricator::getPageModel()::findOrFail($id);
     }
 
@@ -175,16 +177,17 @@ class PageRoutesService
         // Any optimization to this can greatly improve the entire package's performances
         // in one fell swoop.
         return Cache::rememberForever(static::ID_TO_URI_MAPPING, function () {
-            $pages = FilamentFabricator::getPageModel()::query()
+            $mapping = FilamentFabricator::getPageModel()::query()
                 ->with('parent')
-                ->get();
-
-            $mapping = [];
-            $pages->each(function (Page $page) use (&$mapping) {
-                // Note that this also has the benefits of computing
-                // the page's local caches.
-                $mapping[$page->id] = $page->getAllUrls();
-            });
+                ->get()
+                ->toBase()
+                ->mapWithKeys(function (Page $page): array {
+                    // Note that this also has the benefits of computing
+                    // the page's local caches.
+                    // @phpstan-ignore-next-line
+                    return [$page->id => $page->getAllUrls()];
+                })
+                ->all();
 
             return $mapping;
         });
