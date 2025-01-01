@@ -181,7 +181,7 @@ class PageRoutesService
                 ->with('parent')
                 ->get()
                 ->toBase()
-                ->mapWithKeys(function (Page $page): array { //@phpstan-ignore-line
+                ->mapWithKeys(function (Page $page): array { // @phpstan-ignore-line
                     // Note that this also has the benefits of computing
                     // the page's local caches.
                     return [$page->id => $page->getAllUrls()];
