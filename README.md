@@ -76,7 +76,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Ziyaan Hassan](https://github.com/Z3d0X)
+- [ZedoX](https://github.com/Z3d0X)
+- [Voltra](https://github.com/Voltra)
 - [Patrick Boivin](https://github.com/pboivin) - Filament Peek
 - [All Contributors](../../contributors)
 
