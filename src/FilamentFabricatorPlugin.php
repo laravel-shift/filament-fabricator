@@ -31,7 +31,7 @@ class FilamentFabricatorPlugin implements Plugin
         ]));
 
         if (! $panel->hasPlugin(FilamentPeekPlugin::ID)) {
-            //Automatically register FilamentPeekPlugin if it is not already registered
+            // Automatically register FilamentPeekPlugin if it is not already registered
             $panel->plugin(FilamentPeekPlugin::make());
         }
     }
