@@ -21,13 +21,7 @@ class Page extends Model implements Contract
         parent::__construct($attributes);
     }
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'blocks',
-        'layout',
-        'parent_id',
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'blocks' => 'array',
