@@ -2,6 +2,24 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.4.1 - 2025-01-07
+
+### What's Changed
+
+* Add constants for layout render hooks by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/193
+* Fix n+1 query by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/199
+* Fix modal picker style by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/200
+* Fix PHPStan by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/201
+* hotfix: Proper clearing of the ID<->URI mappings by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/204
+* Add constants for page resource schema slots by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/203
+* feat ( Localization ) : add Turkish lang. by @AzizEmir in https://github.com/Z3d0X/filament-fabricator/pull/202
+
+### New Contributors
+
+* @AzizEmir made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/202
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.4.0...v2.4.1
+
 ## v2.4.0 - 2024-12-24
 
 ### What's Changed
