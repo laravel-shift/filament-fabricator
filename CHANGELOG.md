@@ -2,6 +2,19 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.4.2 - 2025-01-08
+
+### What's Changed
+
+* Rename ResourcheSchemaSlot.php to ResourceSchemaSlot.php by @rezadindar in https://github.com/Z3d0X/filament-fabricator/pull/206
+* proposal: Replace the default middleware list by the 'web' middleware group by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/207
+
+### New Contributors
+
+* @rezadindar made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/206
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.4.1...v2.4.2
+
 ## v2.4.1 - 2025-01-07
 
 ### What's Changed
