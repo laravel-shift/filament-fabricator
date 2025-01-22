@@ -2,6 +2,18 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.4.3 - 2025-01-22
+
+### What's Changed
+
+* Add Indonesian language translations for page resource by @cuinc99 in https://github.com/Z3d0X/filament-fabricator/pull/208
+
+### New Contributors
+
+* @cuinc99 made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/208
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.4.2...v2.4.3
+
 ## v2.4.2 - 2025-01-08
 
 ### What's Changed
